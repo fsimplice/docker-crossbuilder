@@ -1,0 +1,10 @@
+FROM elfabio972/crossbuilder:armhf as builder
+
+FROM arm32v6/alpine:latest
+COPY --from=builder /usr/bin /usr/bin
+
+RUN [ "cross-build-start" ]
+
+RUN apk update  
+
+RUN [ "cross-build-end" ]

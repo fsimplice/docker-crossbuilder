@@ -1,0 +1,10 @@
+FROM elfabio972/crossbuilder:aarch64 as builder
+
+FROM aarch64/alpine:latest
+COPY --from=builder /usr/bin /usr/bin
+
+RUN [ "cross-build-start" ]
+
+RUN apk update  
+
+RUN [ "cross-build-end" ]
