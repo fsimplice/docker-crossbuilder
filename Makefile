@@ -8,7 +8,7 @@ build: $(TARGET)/Dockerfile
 push:
 	@docker push $(REPO):$(TARGET)
 
-samples:
+test:
 	@docker build $(BUILD_OPTS) samples/ -f samples/Dockerfile-$(TARGET)
 
 login:

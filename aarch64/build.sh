@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-docker build . -t build/cross-build-aarch64:latest
+docker build . -t samples/cross-build-aarch64:latest

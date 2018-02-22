@@ -21,6 +21,6 @@ before_script:
 script:
     - make build TARGET=armhf
     - make build TARGET=aarch64
-    - make samples TARGET=armhf
-    - make samples TARGET=aarch64
+    - make test TARGET=armhf
+    - make test TARGET=aarch64
     - docker images
