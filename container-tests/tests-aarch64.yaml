@@ -25,5 +25,5 @@ fileExistenceTests:
 
 # check that the qemu-aarch64-static file exists
   - name: 'qemu-aarch64-static'
-    path: '/usr/bin/qemu-arm-static'
+    path: '/usr/bin/qemu-aarch64-static'
     shouldExist: true
