@@ -6,6 +6,7 @@ before_script:
     - docker --version
     - which docker-compose
     - env
+    - tree
 script:
     - make build TARGET=armhf
     - make build TARGET=aarch64
