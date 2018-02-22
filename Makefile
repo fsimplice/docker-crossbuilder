@@ -3,7 +3,7 @@ TARGET ?= armhf
 ARCHS ?= aarch64 armhf
 
 build: $(TARGET)/Dockerfile
-	@docker build $(TARGET)/ -f $(TARGET)/Dockerfile -t build/crossbuild:$(TARGET)-latest
+	@docker build $(BUILD_OPTS) $(TARGET)/ -f $(TARGET)/Dockerfile -t build/crossbuild:$(TARGET)-latest
 
 login:
 	@docker login
