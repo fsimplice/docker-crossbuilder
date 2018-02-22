@@ -5,6 +5,10 @@ before_script:
     - uname -a
     - docker --version
     - which docker-compose
+    - env
 script:
     - make build TARGET=armhf
     - make build TARGET=aarch64
+    - docker build test/ -f test/Dockerfile-armhf
+    - docker build test/ -f test/Dockerfile-aarch64
+    - docker images
