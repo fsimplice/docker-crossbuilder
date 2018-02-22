@@ -1,10 +1,12 @@
+[![Travis](https://img.shields.io/travis/fsimplice/docker-crossbuilder.svg?style=plastic)]()
+[![GitHub license](https://img.shields.io/github/license/fsimplice/docker-crossbuilder.svg)](https://github.com/fsimplice/docker-crossbuilder/blob/master/LICENSE)
 # docker-crossbuilder
 Base image for crossbuilding armhf/aarch64 docker images using multi-stage builds
 
 
-# Building images
+## Building images
 
-##  armhf
+###  armhf
 
 ```shell
 $ make build
@@ -16,15 +18,15 @@ Or
 $ make build TARGET=armhf
 ```
 
-## aarch64
+### aarch64
 
 ```shell
 $ make build TARGET=aarch64 
 ```
 
-# Using images for cross-building (DockerHub automated builds)
+## Using images for cross-building (DockerHub automated builds)
 
-## armhf
+### armhf
 
 ```Dockerfile
 FROM elfabio972/crossbuilder:armhf as builder
@@ -39,7 +41,7 @@ RUN apk update
 RUN [ "cross-build-end" ]
 ```
 
-## aarch64
+### aarch64
 
 ```Dockerfile
 FROM elfabio972/crossbuilder:aarch64 as builder
