@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Required Bash version (associative arrays)
+REQUIRED_MAJOR_BASH_VERSION='4'
+
 declare -A qemus
 qemus=(
     [armhf]='qemu-arm-static'
@@ -31,6 +34,16 @@ function install_template {
     sed -e ${SED_ARGS} ${tpl_file} > ${dockerfileDirectory}/${filename}
     chmod a+x ${dockerfileDirectory}/${filename}
 }
+
+function check_bash_version {
+    if [[ ${BASH_VERSION%%.*} -lt ${REQUIRED_MAJOR_BASH_VERSION} ]];
+    then
+        echo "Required Bash version >= ${REQUIRED_MAJOR_BASH_VERSION}"
+        exit -1
+    fi
+}
+
+check_bash_version;
 
 for arch in ${!qemus[*]}; do
     echo "Build tree for arch: ${arch}"
