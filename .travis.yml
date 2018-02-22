@@ -2,14 +2,18 @@ sudo: required
 services: docker
 language: bash
 
+git:
+  depth: 1
+
 before_script:
     - uname -a
-    - docker --version
-    - which docker-compose
-    - env
-    - sudo apt-get update
-    - sudo apt-get install tree
-    - tree
+#    - docker --version
+#    - which docker-compose
+#    - env
+#    - sudo apt-get update
+#    - sudo apt-get install tree
+#    - tree
+
 script:
     - make build TARGET=armhf
     - make build TARGET=aarch64
