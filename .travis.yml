@@ -6,6 +6,8 @@ before_script:
     - docker --version
     - which docker-compose
     - env
+    - apt-get update
+    - apt-get install tree
     - tree
 script:
     - make build TARGET=armhf
