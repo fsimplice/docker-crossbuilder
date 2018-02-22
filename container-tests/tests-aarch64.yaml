@@ -1,0 +1,29 @@
+schemaVersion: "2.0.0"
+
+globalEnvVars:
+  - key: "VIRTUAL_ENV"
+    value: "/env"
+  - key: "PATH"
+    value: "/env/bin:$PATH"
+
+fileExistenceTests:
+
+# check that the resin-xbuild file exists
+  - name: 'resin-xbuild'
+    path: '/usr/bin/resin-xbuild'
+    shouldExist: true
+
+# check that the cross-build-start file exists
+  - name: 'cross-build-start'
+    path: '/usr/bin/cross-build-start'
+    shouldExist: true
+
+# check that the cross-build-end file exists
+  - name: 'cross-build-end'
+    path: '/usr/bin/cross-build-end'
+    shouldExist: true
+
+# check that the qemu-aarch64-static file exists
+  - name: 'qemu-aarch64-static'
+    path: '/usr/bin/qemu-arm-static'
+    shouldExist: true

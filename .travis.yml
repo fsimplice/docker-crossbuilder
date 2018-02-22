@@ -11,6 +11,7 @@ env:
 
 before_script:
     - uname -a
+    - curl -LO https://storage.googleapis.com/container-structure-test/v0.2.1/container-structure-test && chmod +x container-structure-test && sudo mv container-structure-test /usr/local/bin/
 #    - docker --version
 #    - which docker-compose
 #    - env
@@ -24,3 +25,5 @@ script:
     - make test TARGET=armhf
     - make test TARGET=aarch64
     - docker images
+    - container-structure-test -test.v -image ${REPO}:armhf container-tests/tests-armhf.yaml
+    - container-structure-test -test.v -image ${REPO}:aarch64 container-tests/tests-aarch64.yaml
