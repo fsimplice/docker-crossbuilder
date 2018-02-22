@@ -1,0 +1,10 @@
+services: docker
+language: bash
+
+before_script:
+    - uname -a
+    - docker --version
+    - which docker-compose
+script:
+    - make build TARGET=armhf
+    - make build TARGET=aarch64
