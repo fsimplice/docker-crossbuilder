@@ -5,6 +5,10 @@ language: bash
 git:
   depth: 1
 
+env:
+  global:
+    - REPO=elfabio972/crossbuilder
+
 before_script:
     - uname -a
 #    - docker --version
@@ -17,6 +21,6 @@ before_script:
 script:
     - make build TARGET=armhf
     - make build TARGET=aarch64
-    - docker build test/ -f test/Dockerfile-armhf
-    - docker build test/ -f test/Dockerfile-aarch64
+    - make samples TARGET=armhf
+    - make samples TARGET=aarch64
     - docker images
