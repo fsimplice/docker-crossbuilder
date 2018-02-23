@@ -8,7 +8,7 @@ git:
 stages:
     - test
     - test-images
-    - deploy
+    - tag
 
 env:
   global:
@@ -32,7 +32,7 @@ script:
     - make build TAG=${ARCH} VARIANT=${TRAVIS_QUALIFIER}
     - echo "${DOCKER_PASSWORD}" | docker login -u="${DOCKER_USERNAME}" --password-stdin
     - make push TAG=${ARCH} VARIANT=${TRAVIS_QUALIFIER}
-    - docker images
+    - docker images --digest
 #    - make test TARGET=${ARCH}
 #    - docker images
 #    - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
@@ -50,7 +50,12 @@ jobs:
         - <<: *test_image
           env:
             - ARCH=aarch64
-        - stage: deploy
+        - &tag_image
+          stage: tag
+          env:
+            - ARCH=armhf
           script:
-            - docker images
             - echo "Deploying ${REPO}:${ARCH}"
+        - <<: *tag_image
+          env:
+            - ARCH=aarch64
