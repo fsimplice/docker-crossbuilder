@@ -32,7 +32,7 @@ script:
     - make build TAG=${ARCH} VARIANT=${TRAVIS_QUALIFIER}
     - echo "${DOCKER_PASSWORD}" | docker login -u="${DOCKER_USERNAME}" --password-stdin
     - make push TAG=${ARCH} VARIANT=${TRAVIS_QUALIFIER}
-    - docker images --digest
+    - docker images
 #    - make test TARGET=${ARCH}
 #    - docker images
 #    - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
@@ -55,7 +55,10 @@ jobs:
           env:
             - ARCH=armhf
           script:
-            - echo "Deploying ${REPO}:${ARCH}"
+            - echo "Tagging ${REPO}:${ARCH}"
+            - docker pull ${REPO}:${ARCH}${TRAVIS_QUALIFIER}
+            - echo "${DOCKER_PASSWORD}" | docker login -u="${DOCKER_USERNAME}" --password-stdin
+            - docker tag ${REPO}:${ARCH}${TRAVIS_QUALIFIER} ${REPO}:${ARCH}
         - <<: *tag_image
           env:
             - ARCH=aarch64
