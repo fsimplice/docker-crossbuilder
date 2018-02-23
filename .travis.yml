@@ -30,9 +30,10 @@ before_script:
 
 script:
     - make build TAG=${ARCH} VARIANT=${TRAVIS_QUALIFIER}
-    - echo "${DOCKER_PASSWORD}" | docker login -u="${DOCKER_USERNAME}" --password-stdin
-    - make push TAG=${ARCH} VARIANT=${TRAVIS_QUALIFIER}
+#    - echo "${DOCKER_PASSWORD}" | docker login -u="${DOCKER_USERNAME}" --password-stdin
     - docker images
+    - make login
+    - make push TAG=${ARCH} VARIANT=${TRAVIS_QUALIFIER}
 #    - make test TARGET=${ARCH}
 #    - docker images
 #    - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
@@ -45,7 +46,7 @@ jobs:
             - ARCH=armhf
           script:
             - echo "${ARCH}"
-            - docker pull ${REPO}:${ARCH}${TRAVIS_QUALIFIER}
+            - make pull TAG=${ARCH} VARIANT=${TRAVIS_QUALIFIER}
             - container-structure-test -test.v -image ${REPO}:${ARCH}${TRAVIS_QUALIFIER} container-tests/tests-${ARCH}.yaml
         - <<: *test_image
           env:
@@ -56,11 +57,12 @@ jobs:
             - ARCH=armhf
           script:
             - echo "Tagging ${REPO}:${ARCH}"
-            - docker pull ${REPO}:${ARCH}${TRAVIS_QUALIFIER}
-            - echo "${DOCKER_PASSWORD}" | docker login -u="${DOCKER_USERNAME}" --password-stdin
+            - make pull TAG=${ARCH} VARIANT=${TRAVIS_QUALIFIER}
+#            - echo "${DOCKER_PASSWORD}" | docker login -u="${DOCKER_USERNAME}" --password-stdin
+            - make tag TAG=${ARCH} VARIANT=${TRAVIS_QUALIFIER}
             - docker images
-            - docker tag ${REPO}:${ARCH}${TRAVIS_QUALIFIER} ${REPO}:${ARCH}
-            - docker images
+            - make login
+            - make push TAG=${ARCH}
         - <<: *tag_image
           env:
             - ARCH=aarch64
