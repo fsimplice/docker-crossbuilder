@@ -40,13 +40,11 @@ script:
 jobs:
     include:
         - .demo: &demo
-            env:
-                - ARCH=aarch64
-            stage:  demo
-            script: echo "${ARCH}"
-        - <<: *demo
-          env:
-            - ARCH=armhf
+            stage: test-struct
+            script:
+                - echo "${ARCH}"
+                - docker pull ${REPO}:${ARCH}
+                - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
         - <<: *demo
         - stage: test-struct
           script:
