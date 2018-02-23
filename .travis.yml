@@ -5,12 +5,7 @@ language: bash
 git:
   depth: 1
 
-caches:
-    directories:
-        - .cache/
-
 stages:
-    - build
     - test
     - test-struct
     - deploy
@@ -25,7 +20,6 @@ env:
 before_script:
     - uname -a
     - curl -LO https://storage.googleapis.com/container-structure-test/v0.2.1/container-structure-test && chmod +x container-structure-test && sudo mv container-structure-test /usr/local/bin/
-    - mkdir -p .cache
 #    - docker --version
 #    - which docker-compose
 #    - env
@@ -35,20 +29,15 @@ before_script:
 
 script:
     - make build TARGET=${ARCH}
-    - make save TARGET=${ARCH}
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - make push TARGET=${ARCH}
     - docker images
-    - ls -lR .cache
 #    - make test TARGET=${ARCH}
 #    - docker images
 #    - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
 
 jobs:
     include:
-        - stage: build
-          script:
-            - docker images
-            - make build TARGET=${ARCH}
-            - docker images
         - stage: test-struct
           script:
             - docker images
