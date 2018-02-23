@@ -9,7 +9,7 @@ save:
 	@docker save --output .cache/$(TAG).tar $(REPO):$(TAG)$(VARIANT)
 
 push:
-	@docker pull $(REPO):$(TAG)$(VARIANT)
+	@docker push $(REPO):$(TAG)$(VARIANT)
 
 pull:
 	@docker pull $(REPO):$(TAG)$(VARIANT)
