@@ -41,13 +41,12 @@ jobs:
     include:
         - &test_image
           stage: test-images
+          env:
+            - ARCH=armhf
           script:
             - echo "${ARCH}"
             - docker pull ${REPO}:${ARCH}${TRAVIS_QUALIFIER}
             - container-structure-test -test.v -image ${REPO}:${ARCH}${TRAVIS_QUALIFIER} container-tests/tests-${ARCH}.yaml
-        - <<: *test_image
-          env:
-            - ARCH=armhf
         - <<: *test_image
           env:
             - ARCH=aarch64
