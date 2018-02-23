@@ -23,10 +23,7 @@ before_script:
 #    - tree
 
 script:
-    - make build TARGET=armhf
-    - make build TARGET=aarch64
-    - make test TARGET=armhf
-    - make test TARGET=aarch64
+    - make build TARGET=${ARCH}
+    - make test TARGET=${ARCH}
     - docker images
-    - container-structure-test -test.v -image ${REPO}:armhf container-tests/tests-armhf.yaml
-    - container-structure-test -test.v -image ${REPO}:aarch64 container-tests/tests-aarch64.yaml
+    - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
