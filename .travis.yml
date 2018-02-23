@@ -9,6 +9,10 @@ env:
   global:
     - REPO=elfabio972/crossbuilder
 
+arch:
+    - armhf
+    - aarch64
+
 before_script:
     - uname -a
     - curl -LO https://storage.googleapis.com/container-structure-test/v0.2.1/container-structure-test && chmod +x container-structure-test && sudo mv container-structure-test /usr/local/bin/
