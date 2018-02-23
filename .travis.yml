@@ -8,10 +8,9 @@ git:
 env:
   global:
     - REPO=elfabio972/crossbuilder
-
-arch:
-    - armhf
-    - aarch64
+  matrix:
+    - ARCH=armhf
+    - ARCH=aarch64
 
 before_script:
     - uname -a
