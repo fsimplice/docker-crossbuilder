@@ -40,6 +40,8 @@ script:
 jobs:
     include:
         - .demo: &demo
+            env:
+                - ARCH=aarch64
             stage:  demo
             script: echo "${ARCH}"
         - <<: *demo
