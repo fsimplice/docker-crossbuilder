@@ -5,6 +5,11 @@ language: bash
 git:
   depth: 1
 
+stages:
+    - build
+    - test
+    - deploy
+
 env:
   global:
     - REPO=elfabio972/crossbuilder
@@ -22,8 +27,20 @@ before_script:
 #    - sudo apt-get install tree
 #    - tree
 
-script:
-    - make build TARGET=${ARCH}
-    - make test TARGET=${ARCH}
-    - docker images
-    - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
+#script:
+#    - make build TARGET=${ARCH}
+#    - make test TARGET=${ARCH}
+#    - docker images
+#    - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
+
+jobs:
+    include:
+        - stage: build
+          script:
+            - make build TARGET=${ARCH}
+        - stage: test
+          script:
+            - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
+        - stage: deploy
+          script:
+            - echo "Deploying ${REPO}:${ARCH}"
