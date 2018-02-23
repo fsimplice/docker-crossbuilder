@@ -13,6 +13,7 @@ stages:
 env:
   global:
     - REPO=${DOCKER_USERNAME}/crossbuilder
+    - TRAVIS_QUALIFIER=-travis-ci
   matrix:
     - ARCH=armhf
     - ARCH=aarch64
@@ -28,9 +29,9 @@ before_script:
 #    - tree
 
 script:
-    - make build TARGET=${ARCH}
+    - make build TAG=${ARCH} VARIANT=${TRAVIS_QUALIFIER}
     - echo "${DOCKER_PASSWORD}" | docker login -u="${DOCKER_USERNAME}" --password-stdin
-    - make push TARGET=${ARCH}
+    - make push TAG=${ARCH} VARIANT=${TRAVIS_QUALIFIER}
     - docker images
 #    - make test TARGET=${ARCH}
 #    - docker images
@@ -42,8 +43,8 @@ jobs:
             stage: test-images
             script:
                 - echo "${ARCH}"
-                - docker pull ${REPO}:${ARCH}
-                - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
+                - docker pull ${REPO}:${ARCH}${TRAVIS_QUALIFIER}
+                - container-structure-test -test.v -image ${REPO}:${ARCH}${TRAVIS_QUALIFIER} container-tests/tests-${ARCH}.yaml
         - <<: *test_image
           env:
             - ARCH=armhf

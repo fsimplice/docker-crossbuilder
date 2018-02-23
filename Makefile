@@ -1,18 +1,21 @@
 
-TARGET ?= armhf
+TAG ?= armhf
 ARCHS ?= aarch64 armhf
 
-build: $(TARGET)/Dockerfile
-	@docker build $(BUILD_OPTS) $(TARGET)/ -f $(TARGET)/Dockerfile -t $(REPO):$(TARGET)
+build: $(TAG)/Dockerfile
+	@docker build $(BUILD_OPTS) $(TAG)/ -f $(TAG)/Dockerfile -t $(REPO):$(TAG)$(VARIANT)
 
 save:
-	@docker save --output .cache/$(TARGET).tar $(REPO):$(TARGET)
+	@docker save --output .cache/$(TAG).tar $(REPO):$(TAG)$(VARIANT)
 
 push:
-	@docker push $(REPO):$(TARGET)
+	@docker pull $(REPO):$(TAG)$(VARIANT)
+
+pull:
+	@docker pull $(REPO):$(TAG)$(VARIANT)
 
 test:
-	@docker build $(BUILD_OPTS) samples/ -f samples/Dockerfile-$(TARGET)
+	@docker build $(BUILD_OPTS) samples/ -f samples/Dockerfile-$(TAG)
 
 login:
 	@docker login -u="$(DOCKER_USERNAME)" -p="$(DOCKER_PASSWORD)"
