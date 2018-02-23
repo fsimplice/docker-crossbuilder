@@ -8,6 +8,7 @@ git:
 stages:
     - build
     - test
+    - test-struct
     - deploy
 
 env:
@@ -27,8 +28,8 @@ before_script:
 #    - sudo apt-get install tree
 #    - tree
 
-#script:
-#    - make build TARGET=${ARCH}
+script:
+    - make build TARGET=${ARCH}
 #    - make test TARGET=${ARCH}
 #    - docker images
 #    - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
@@ -40,7 +41,7 @@ jobs:
             - docker images
             - make build TARGET=${ARCH}
             - docker images
-        - stage: test
+        - stage: test-struct
           script:
             - docker images
             - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
