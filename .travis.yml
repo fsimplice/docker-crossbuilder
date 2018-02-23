@@ -45,6 +45,8 @@ jobs:
             stage:  demo
             script: echo "${ARCH}"
         - <<: *demo
+            env:
+                - ARCH=armhf
         - <<: *demo
         - stage: test-struct
           script:
