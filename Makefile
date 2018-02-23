@@ -5,6 +5,9 @@ ARCHS ?= aarch64 armhf
 build: $(TARGET)/Dockerfile
 	@docker build $(BUILD_OPTS) $(TARGET)/ -f $(TARGET)/Dockerfile -t $(REPO):$(TARGET)
 
+save:
+	@docker save --output .cache/$(TARGET).tar $(REPO):$(TARGET)
+
 push:
 	@docker push $(REPO):$(TARGET)
 

@@ -5,6 +5,10 @@ language: bash
 git:
   depth: 1
 
+caches:
+    directories:
+        - .cache/
+
 stages:
     - build
     - test
@@ -30,6 +34,9 @@ before_script:
 
 script:
     - make build TARGET=${ARCH}
+    - make save TARGET=${ARCH}
+    - docker images
+    - ls -lR .cache
 #    - make test TARGET=${ARCH}
 #    - docker images
 #    - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
