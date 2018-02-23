@@ -43,11 +43,7 @@ jobs:
             stage:  demo
             script: echo "${ARCH}"
         - <<: *demo
-            env:
-            - ARCH=armhf
         - <<: *demo
-            env:
-            - ARCH=aarch64
         - stage: test-struct
           script:
             - docker images
