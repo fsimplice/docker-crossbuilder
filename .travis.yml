@@ -46,6 +46,7 @@ jobs:
           script:
             - docker images
             - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
+        - <<: *demo
         - stage: deploy
           script:
             - docker images
