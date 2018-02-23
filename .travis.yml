@@ -58,7 +58,9 @@ jobs:
             - echo "Tagging ${REPO}:${ARCH}"
             - docker pull ${REPO}:${ARCH}${TRAVIS_QUALIFIER}
             - echo "${DOCKER_PASSWORD}" | docker login -u="${DOCKER_USERNAME}" --password-stdin
+            - docker images
             - docker tag ${REPO}:${ARCH}${TRAVIS_QUALIFIER} ${REPO}:${ARCH}
+            - docker images
         - <<: *tag_image
           env:
             - ARCH=aarch64
