@@ -46,8 +46,8 @@ jobs:
                 - docker pull ${REPO}:${ARCH}
                 - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
         - <<: *demo
-            env:
-                - ARCH=aarch64
+          env:
+            - ARCH=aarch64
         - stage: test-struct
           script:
             - docker images
