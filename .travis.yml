@@ -37,10 +37,14 @@ jobs:
     include:
         - stage: build
           script:
+            - docker images
             - make build TARGET=${ARCH}
+            - docker images
         - stage: test
           script:
+            - docker images
             - container-structure-test -test.v -image ${REPO}:${ARCH} container-tests/tests-${ARCH}.yaml
         - stage: deploy
           script:
+            - docker images
             - echo "Deploying ${REPO}:${ARCH}"
